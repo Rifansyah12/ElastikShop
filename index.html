@@ -7,17 +7,14 @@
     <meta
       name="description"
       content="Elastik Shop melayani pembuatan gantungan kunci karet custom PVC berkualitas untuk komunitas, perusahaan, sekolah, dan merchandise event." />
-
     <meta
       name="keywords"
       content="gantungan kunci custom, gantungan kunci karet, keychain PVC, souvenir custom, merchandise custom" />
-
     <meta name="author" content="Elastik Shop" />
-
     <meta name="robots" content="index, follow" />
     <link rel="icon" type="image/png" href="logo-elastik.png" />
 
-    <!-- Font Awesome (untuk ikon close & navigasi lightbox) -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -490,10 +487,42 @@
           right: 15px;
         }
       }
+
+      /* ===== FLOATING WHATSAPP BUTTON ===== */
+      .wa-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background-color: #25d366;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 32px;
+        line-height: 60px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+        z-index: 9998;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .wa-float:hover {
+        background-color: #128c7e;
+        transform: scale(1.08);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      }
+      @media (max-width: 768px) {
+        .wa-float {
+          width: 50px;
+          height: 50px;
+          font-size: 28px;
+          line-height: 50px;
+          bottom: 20px;
+          right: 20px;
+        }
+      }
     </style>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
   <body>
     <header>
@@ -576,7 +605,7 @@
         <img src="persib.png" alt="Produk Persib" class="reveal" />
         <img src="mouckup01.png" alt="Mockup 1" class="reveal" />
         <img src="persib2.png" alt="Produk Persib 2" class="reveal" />
-        <img src="mockup.png" alt="Mockup utama" class="reveal" />
+        <img src="mouckup.png" alt="Mockup utama" class="reveal" />
       </div>
     </section>
 
@@ -624,6 +653,16 @@
       <img class="lightbox-img" id="lightboxImg" src="" alt="" />
       <span class="lightbox-next">&#10095;</span>
     </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a
+      href="https://wa.me/628972089767?text=Halo%20Elastik%20Shop%2C%20saya%20tertarik%20dengan%20produk%20custom%20Anda"
+      class="wa-float"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat via WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script>
       // Hamburger menu
@@ -712,7 +751,6 @@
       window.addEventListener("resize", checkReveal);
 
       // ===== LIGHTBOX (klik gambar untuk memperbesar) =====
-      // Kumpulkan semua gambar yang ingin diberi fitur lightbox
       const galleryImages = document.querySelectorAll(
         ".gallery img, .product-detail-image img",
       );
@@ -725,7 +763,6 @@
       let currentImageIndex = 0;
       let imageList = [];
 
-      // Kumpulkan src dan alt dari semua gambar target
       function updateImageList() {
         imageList = [];
         galleryImages.forEach((img) => {
@@ -736,7 +773,6 @@
         });
       }
 
-      // Tampilkan gambar lightbox berdasarkan indeks
       function showLightbox(index) {
         if (index < 0) index = 0;
         if (index >= imageList.length) index = imageList.length - 1;
@@ -747,13 +783,11 @@
         lightbox.classList.add("active");
       }
 
-      // Event klik pada setiap gambar target
       function bindClickEvents() {
         galleryImages.forEach((img, idx) => {
           img.addEventListener("click", (e) => {
             e.stopPropagation();
-            updateImageList(); // refresh daftar gambar (jika ada perubahan dinamis)
-            // cari indeks yang benar berdasarkan src
+            updateImageList();
             const newIndex = imageList.findIndex(
               (item) => item.src === img.src,
             );
@@ -762,12 +796,10 @@
         });
       }
 
-      // Tutup lightbox
       function closeLightbox() {
         lightbox.classList.remove("active");
       }
 
-      // Navigasi prev/next
       function prevImage() {
         if (imageList.length === 0) return;
         let newIndex = currentImageIndex - 1;
@@ -782,7 +814,6 @@
         showLightbox(newIndex);
       }
 
-      // Event listener
       closeBtn.addEventListener("click", closeLightbox);
       prevBtn.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -793,14 +824,12 @@
         nextImage();
       });
 
-      // Tutup lightbox jika klik di area gelap (di luar gambar)
       lightbox.addEventListener("click", (e) => {
         if (e.target === lightbox) {
           closeLightbox();
         }
       });
 
-      // Tambahkan event keyboard (ESC untuk tutup, panah kiri/kanan)
       document.addEventListener("keydown", (e) => {
         if (!lightbox.classList.contains("active")) return;
         if (e.key === "Escape") {
@@ -812,10 +841,7 @@
         }
       });
 
-      // Inisialisasi binding klik setelah DOM ready
       bindClickEvents();
-      // Jika ada gambar yang ditambahkan secara dinamis nanti, kita bisa panggil ulang bindClickEvents
-      // Tapi di halaman ini statis, jadi cukup sekali.
     </script>
   </body>
 </html>
