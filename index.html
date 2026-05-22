@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elastik Shop - Gantungan Kunci Custom</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #f5f5f5;
+        color: #222;
+      }
+
+      header {
+        background: #111827;
+        color: white;
+        padding: 20px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #facc15;
+      }
+
+      .logo img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+      }
+
+      /* ===== NAVBAR ASLI (Desktop) TIDAK BERUBAH ===== */
+      nav {
+        display: flex;
+        gap: 20px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #facc15;
+      }
+
+      /* ===== HAMBURGER BUTTON (hanya muncul di mobile) ===== */
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      /* ===== RESPONSIVE MOBILE (Navbar berubah jadi hamburger) ===== */
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+
+        /* Sembunyikan nav biasa, ganti dengan versi slide */
+        nav {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          max-width: 280px;
+          height: 100vh;
+          background: #111827;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          transition: 0.3s ease;
+          z-index: 1000;
+          box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+          margin-left: 0;
+          font-size: 20px;
+        }
+
+        nav.show {
+          right: 0;
+        }
+
+        /* Overlay gelap (opsional, tutup saat klik di luar) */
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        }
+
+        .overlay.show {
+          display: block;
+        }
+
+        /* Penyesuaian hero dll (tidak mengubah navbar) */
+        .hero {
+          text-align: center;
+        }
+
+        .hero-text h1 {
+          font-size: 40px;
+        }
+
+        .hero-image {
+          margin-top: 40px;
+        }
+      }
+
+      /* ===== SISA STYLE ASLI ANDA (TIDAK DIUBAH) ===== */
+      .hero {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px 8%;
+        background: linear-gradient(to right, #111827, #1f2937);
+        color: white;
+        flex-wrap: wrap;
+      }
+
+      .hero-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .hero-text h1 {
+        font-size: 55px;
+        margin-bottom: 20px;
+        line-height: 1.1;
+      }
+
+      .hero-text span {
+        color: #facc15;
+      }
+
+      .hero-text p {
+        font-size: 18px;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        max-width: 600px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        background: #facc15;
+        color: #111827;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .btn:hover {
+        background: white;
+      }
+
+      .hero-image {
+        flex: 1;
+        text-align: center;
+        min-width: 300px;
+      }
+
+      .hero-image img {
+        width: 80%;
+        max-width: 400px;
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+      }
+
+      section {
+        padding: 80px 8%;
+      }
+
+      .title {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .title h2 {
+        font-size: 40px;
+        color: #111827;
+        margin-bottom: 10px;
+      }
+
+      .title p {
+        color: #555;
+      }
+
+      .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-8px);
+      }
+
+      .card h3 {
+        margin-bottom: 15px;
+        color: #111827;
+      }
+
+      .card p {
+        color: #555;
+        line-height: 1.7;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery img {
+        width: 100%;
+        border-radius: 15px;
+        object-fit: cover;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .custom {
+        background: #111827;
+        color: white;
+        text-align: center;
+        border-radius: 20px;
+        padding: 60px 30px;
+      }
+
+      .custom h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+      }
+
+      .custom p {
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        color: #ddd;
+      }
+
+      footer {
+        background: #0f172a;
+        color: white;
+        text-align: center;
+        padding: 25px;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER (Navbar asli tidak berubah, hanya ditambahkan tombol hamburger) -->
+    <header>
+      <div class="logo">
+        <img src="logo-elastik.png" alt="Logo Elastik Shop" />
+        <span>Elastik Shop</span>
+      </div>
+
+      <!-- Tombol Hamburger (hanya tampil di mobile) -->
+      <button class="hamburger" id="hamburgerBtn">☰</button>
+
+      <!-- Navigasi asli, strukturnya tetap sama -->
+      <nav id="navMenu">
+        <a href="#">Home</a>
+        <a href="#">Produk</a>
+        <a href="#">Custom</a>
+        <a href="#">Kontak</a>
+      </nav>
+
+      <div id="overlay" class="overlay"></div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Jasa Pembuatan <span>Gantungan Kunci Karet</span> Custom</h1>
+        <p>
+          Elastik Shop menyediakan jasa pembuatan gantungan kunci karet custom
+          dengan desain bebas sesuai logo, komunitas, brand, sekolah,
+          perusahaan, hingga merchandise event.
+        </p>
+        <a href="#" class="btn">Pesan Sekarang</a>
+      </div>
+      <div class="hero-image">
+        <img src="mockup.png" alt="gantungan kunci" />
+      </div>
+    </section>
+
+    <!-- LAYANAN -->
+    <section>
+      <div class="title">
+        <h2>Layanan Kami</h2>
+        <p>Kami melayani pembuatan berbagai aksesoris custom berkualitas.</p>
+      </div>
+      <div class="services">
+        <div class="card">
+          <h3>Custom Design</h3>
+          <p>
+            Bisa custom desain sesuai logo, gambar, komunitas, sekolah,
+            perusahaan, ataupun desain pribadi.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Bahan Berkualitas</h3>
+          <p>
+            Menggunakan bahan karet PVC premium yang awet, lentur, dan memiliki
+            warna tajam.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Harga Terjangkau</h3>
+          <p>
+            Cocok untuk souvenir, merchandise event, komunitas motor, football
+            fans, dan kebutuhan promosi.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section>
+      <div class="title">
+        <h2>Produk Kami</h2>
+        <p>Contoh hasil gantungan kunci custom Elastik Shop.</p>
+      </div>
+      <div class="gallery">
+        <img src="persib.png" />
+        <img src="mouckup01.png" />
+        <img src="persib2.png" />
+        <img src="mockup.png" />
+      </div>
+    </section>
+
+    <!-- CUSTOM -->
+    <section>
+      <div class="custom">
+        <h2>Bisa Custom Sesuai Keinginan</h2>
+        <p>
+          Kirim desain logo atau konsep Anda, dan kami akan membantu membuat
+          gantungan kunci karet custom dengan hasil premium dan detail terbaik.
+          Cocok untuk kebutuhan komunitas, merchandise, promosi bisnis, sekolah,
+          hingga event besar.
+        </p>
+        <a href="#" class="btn">Hubungi Kami</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 Elastik Shop - Jasa Pembuatan Gantungan Kunci Karet Custom</p>
+    </footer>
+
+    <script>
+      // Hamburger menu toggle (tanpa mengubah struktur navbar asli)
+      const hamburger = document.getElementById("hamburgerBtn");
+      const navMenu = document.getElementById("navMenu");
+      const overlay = document.getElementById("overlay");
+
+      function toggleMenu() {
+        navMenu.classList.toggle("show");
+        overlay.classList.toggle("show");
+        // Ubah ikon ☰ menjadi ✕ saat menu terbuka
+        hamburger.innerHTML = navMenu.classList.contains("show") ? "✕" : "☰";
+      }
+
+      hamburger.addEventListener("click", toggleMenu);
+      overlay.addEventListener("click", toggleMenu);
+
+      // Tutup menu saat link di klik
+      document.querySelectorAll("#navMenu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (navMenu.classList.contains("show")) toggleMenu();
+        });
+      });
+
+      // Jika layar di-resize melebihi 768px, pastikan menu kembali ke mode desktop
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+          if (navMenu.classList.contains("show")) {
+            navMenu.classList.remove("show");
+            overlay.classList.remove("show");
+            hamburger.innerHTML = "☰";
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
