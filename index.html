@@ -488,11 +488,26 @@
         }
       }
 
-      /* ===== FLOATING WHATSAPP BUTTON ===== */
+      /* ===== FLOATING WHATSAPP BUTTON dengan animasi Pulse ===== */
+      @keyframes pulse-wa {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+      }
+
       .wa-float {
         position: fixed;
-        bottom: 25px;
-        right: 25px;
+        bottom: 30px;
+        right: 30px;
         background-color: #25d366;
         color: white;
         width: 60px;
@@ -506,20 +521,25 @@
         z-index: 9998;
         cursor: pointer;
         text-decoration: none;
+        animation: pulse-wa 1.8s infinite ease-in-out;
+        will-change: transform;
       }
       .wa-float:hover {
+        animation: none;
         background-color: #128c7e;
-        transform: scale(1.08);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        transform: scale(1.1);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
       }
+      /* Perbaikan untuk mobile */
       @media (max-width: 768px) {
         .wa-float {
-          width: 50px;
-          height: 50px;
-          font-size: 28px;
-          line-height: 50px;
-          bottom: 20px;
-          right: 20px;
+          width: 56px;
+          height: 56px;
+          font-size: 30px;
+          line-height: 56px;
+          bottom: 24px;
+          right: 24px;
+          animation: pulse-wa 1.5s infinite ease-in-out;
         }
       }
     </style>
@@ -605,7 +625,7 @@
         <img src="persib.png" alt="Produk Persib" class="reveal" />
         <img src="mouckup01.png" alt="Mockup 1" class="reveal" />
         <img src="persib2.png" alt="Produk Persib 2" class="reveal" />
-        <img src="mouckup.png" alt="Mockup utama" class="reveal" />
+        <img src="mockup.png" alt="Mockup utama" class="reveal" />
       </div>
     </section>
 
@@ -654,7 +674,7 @@
       <span class="lightbox-next">&#10095;</span>
     </div>
 
-    <!-- Floating WhatsApp Button -->
+    <!-- Floating WhatsApp Button dengan animasi -->
     <a
       href="https://wa.me/628972089767?text=Halo%20Elastik%20Shop%2C%20saya%20tertarik%20dengan%20produk%20custom%20Anda"
       class="wa-float"
@@ -750,7 +770,7 @@
       window.addEventListener("scroll", checkReveal);
       window.addEventListener("resize", checkReveal);
 
-      // ===== LIGHTBOX (klik gambar untuk memperbesar) =====
+      // ===== LIGHTBOX =====
       const galleryImages = document.querySelectorAll(
         ".gallery img, .product-detail-image img",
       );
