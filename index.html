@@ -16,6 +16,7 @@
       body {
         background: #f5f5f5;
         color: #222;
+        overflow-x: hidden;
       }
 
       header {
@@ -300,6 +301,11 @@
         border-radius: 15px;
         object-fit: cover;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .gallery img:hover {
+        transform: scale(1.02);
       }
 
       .custom {
@@ -347,6 +353,28 @@
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
+
+      /* ===== ANIMASI SCROLL REVEAL ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Efek tambahan untuk kartu (delay berurutan) */
+      .card.reveal {
+        transition-delay: 0.1s;
+      }
+      .gallery img.reveal {
+        transition-delay: 0.05s;
+      }
     </style>
   </head>
   <body>
@@ -366,8 +394,7 @@
     </header>
 
     <section class="hero">
-      <div class="hero-text">
-        <!-- Teks heading diubah menjadi lebih premium & mencakup aksesoris -->
+      <div class="hero-text reveal">
         <h1>
           Jasa Pembuatan
           <span>Aksesoris Custom Premium</span><br />
@@ -382,8 +409,7 @@
         <a href="custom.html" class="btn">Pesan Sekarang</a>
       </div>
 
-      <!-- SLIDER OTOMATIS -->
-      <div class="hero-image">
+      <div class="hero-image reveal">
         <div class="slider-container">
           <div class="slider" id="slider">
             <img src="mockup.png" class="slide active" alt="Produk 1" />
@@ -397,26 +423,26 @@
     </section>
 
     <section>
-      <div class="title">
+      <div class="title reveal">
         <h2>Layanan Kami</h2>
         <p>Kami melayani pembuatan berbagai aksesoris custom berkualitas.</p>
       </div>
       <div class="services">
-        <div class="card">
+        <div class="card reveal">
           <h3>Custom Design</h3>
           <p>
             Bebas desain sesuai logo, gambar, tema komunitas, sekolah,
             perusahaan, maupun ide pribadi Anda.
           </p>
         </div>
-        <div class="card">
+        <div class="card reveal">
           <h3>Bahan Premium</h3>
           <p>
             Tersedia banyak pilihan: karet PVC, akrilik, kayu, logam, resin,
             dengan hasil cetak tajam dan tahan lama.
           </p>
         </div>
-        <div class="card">
+        <div class="card reveal">
           <h3>Harga Terjangkau</h3>
           <p>
             Cocok untuk souvenir, merchandise event, hadiah ulang tahun, promosi
@@ -427,30 +453,30 @@
     </section>
 
     <section>
-      <div class="title">
+      <div class="title reveal">
         <h2>Produk Kami</h2>
         <p>Contoh hasil karya custom dari Elastik Shop.</p>
       </div>
       <div class="gallery">
-        <img src="persib.png" alt="Produk Persib" />
-        <img src="mouckup01.png" alt="Mockup 1" />
-        <img src="persib2.png" alt="Produk Persib 2" />
-        <img src="mockup.png" alt="Mockup utama" />
+        <img src="persib.png" alt="Produk Persib" class="reveal" />
+        <img src="mouckup01.png" alt="Mockup 1" class="reveal" />
+        <img src="persib2.png" alt="Produk Persib 2" class="reveal" />
+        <img src="mockup.png" alt="Mockup utama" class="reveal" />
       </div>
     </section>
 
     <section class="product-detail-section">
-      <div class="title">
+      <div class="title reveal">
         <h2>Detail Produk</h2>
         <p>Spesifikasi lengkap aksesoris custom Elastik Shop.</p>
       </div>
-      <div class="product-detail-image">
+      <div class="product-detail-image reveal">
         <img src="detail.png" alt="Detail Produk Elastik Shop" />
       </div>
     </section>
 
     <section>
-      <div class="custom">
+      <div class="custom reveal">
         <h2>Bisa Custom Sesuai Keinginan</h2>
         <p>
           Kirimkan desain logo, foto, atau konsep Anda. Tim kami akan membantu
@@ -531,6 +557,30 @@
       createDots();
       showSlide(0);
       setInterval(nextSlide, 3000);
+
+      // ===== SCROLL REVEAL ANIMATION =====
+      const revealElements = document.querySelectorAll(".reveal");
+
+      function checkReveal() {
+        const windowHeight = window.innerHeight;
+        const revealThreshold = 100; // sedikit sebelum elemen masuk viewport
+
+        revealElements.forEach((el) => {
+          const rect = el.getBoundingClientRect();
+          const isVisible = rect.top < windowHeight - revealThreshold;
+          if (isVisible) {
+            el.classList.add("visible");
+          } else {
+            // opsional: jika ingin animasi ulang saat scroll ke atas, hapus baris di bawah
+            // el.classList.remove('visible');
+          }
+        });
+      }
+
+      // Jalankan saat halaman dimuat dan saat scroll
+      window.addEventListener("load", checkReveal);
+      window.addEventListener("scroll", checkReveal);
+      window.addEventListener("resize", checkReveal);
     </script>
   </body>
 </html>
