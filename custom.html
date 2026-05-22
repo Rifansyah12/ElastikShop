@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elastik Shop - Custom Keychain</title>
+    <style>
+      /* ===== STYLE SAMA PERSIS DENGAN YANG ANDA PUNYA ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        background: #f5f5f5;
+        color: #222;
+      }
+      header {
+        background: #111827;
+        color: white;
+        padding: 20px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #facc15;
+      }
+      .logo img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+      }
+      nav {
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: 0.3s;
+      }
+      nav a:hover {
+        color: #facc15;
+      }
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+        nav {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          max-width: 280px;
+          height: 100vh;
+          background: #111827;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          transition: 0.3s ease;
+          z-index: 1000;
+          box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+        }
+        nav a {
+          margin-left: 0;
+          font-size: 20px;
+        }
+        nav.show {
+          right: 0;
+        }
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 999;
+        }
+        .overlay.show {
+          display: block;
+        }
+      }
+      .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        background: #facc15;
+        color: #111827;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+        border: none;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: white;
+      }
+      section {
+        padding: 80px 8%;
+      }
+      .title {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      .title h2 {
+        font-size: 40px;
+        color: #111827;
+        margin-bottom: 10px;
+      }
+      .title p {
+        color: #555;
+      }
+      .custom-form {
+        max-width: 700px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #111827;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      footer {
+        background: #0f172a;
+        color: white;
+        text-align: center;
+        padding: 25px;
+        margin-top: 50px;
+      }
+      /* tambahan style untuk notifikasi loading */
+      .loading {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="logo-elastik.png" alt="Logo" /><span>Elastik Shop</span>
+      </div>
+      <button class="hamburger" id="hamburgerBtn">☰</button>
+      <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="produk.html">Produk</a>
+        <a href="custom.html">Custom</a>
+        <a href="contact.html">Kontak</a>
+      </nav>
+      <div id="overlay" class="overlay"></div>
+    </header>
+
+    <section>
+      <div class="title">
+        <h2>Form Pemesanan Custom</h2>
+        <p>Isi data Anda, tim kami akan segera menghubungi</p>
+      </div>
+      <div class="custom-form">
+        <form id="customForm">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Nama Anda" required />
+          </div>
+          <div class="form-group">
+            <label>Email / WhatsApp</label>
+            <input
+              type="text"
+              id="kontak"
+              placeholder="08123456789 atau email@example.com"
+              required />
+          </div>
+          <div class="form-group">
+            <label>Jenis Bahan</label>
+            <select id="bahan">
+              <option>Karet PVC</option>
+              <option>Silikon Elastik</option>
+              <option>Akrilik</option>
+              <option>Metal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Jumlah Pesanan (min. 50)</label>
+            <input type="number" id="jumlah" value="50" min="50" />
+          </div>
+          <div class="form-group">
+            <label>Deskripsi Desain / Link Contoh</label>
+            <textarea
+              id="deskripsi"
+              rows="4"
+              placeholder="Jelaskan logo, warna, ukuran, atau kirim link desain"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Estimasi Budget per pcs</label>
+            <input
+              type="text"
+              id="budget"
+              placeholder="Contoh: Rp 5.000 - Rp 10.000" />
+          </div>
+          <button type="submit" id="submitBtn" class="btn" style="width: 100%">
+            Kirim Permintaan
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Elastik Shop - Jasa Pembuatan Gantungan Kunci Karet Custom
+    </footer>
+
+    <script>
+      // ========== HAMBURGER MENU (tetap sama) ==========
+      const hamburger = document.getElementById("hamburgerBtn");
+      const navMenu = document.getElementById("navMenu");
+      const overlay = document.getElementById("overlay");
+      function toggleMenu() {
+        navMenu.classList.toggle("show");
+        overlay.classList.toggle("show");
+        hamburger.innerHTML = navMenu.classList.contains("show") ? "✕" : "☰";
+      }
+      hamburger.addEventListener("click", toggleMenu);
+      overlay.addEventListener("click", toggleMenu);
+      document.querySelectorAll("#navMenu a").forEach((link) =>
+        link.addEventListener("click", () => {
+          if (navMenu.classList.contains("show")) toggleMenu();
+        }),
+      );
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
+          navMenu.classList.remove("show");
+          overlay.classList.remove("show");
+          hamburger.innerHTML = "☰";
+        }
+      });
+      
+      const waNumber = "628972089767";
+
+      const form = document.getElementById("customForm");
+      const submitBtn = document.getElementById("submitBtn");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Ambil nilai dari form
+        const nama = document.getElementById("nama").value.trim();
+        const kontak = document.getElementById("kontak").value.trim();
+        const bahan = document.getElementById("bahan").value;
+        const jumlah = document.getElementById("jumlah").value;
+        const deskripsi = document.getElementById("deskripsi").value.trim();
+        const budget = document.getElementById("budget").value.trim();
+
+        // Validasi sederhana
+        if (nama === "") {
+          alert("Nama lengkap harus diisi!");
+          return;
+        }
+        if (kontak === "") {
+          alert("Email / WhatsApp harus diisi!");
+          return;
+        }
+
+        // Format pesan untuk WhatsApp
+        let pesan = "*🛍️ PERMINTAAN CUSTOM ELASTIK SHOP*%0A%0A";
+        pesan += `*Nama:* ${nama}%0A`;
+        pesan += `*Kontak:* ${kontak}%0A`;
+        pesan += `*Jenis Bahan:* ${bahan}%0A`;
+        pesan += `*Jumlah Pesanan:* ${jumlah} pcs%0A`;
+        pesan += `*Estimasi Budget:* ${budget || "Belum ditentukan"}%0A`;
+        pesan += `*Deskripsi Desain:* ${deskripsi || "Tidak ada deskripsi"}%0A%0A`;
+        pesan += `_Pesan dikirim dari website Elastik Shop_`;
+
+        // Buat URL WhatsApp
+        const waUrl = `https://wa.me/${waNumber}?text=${pesan}`;
+
+        // Tampilkan efek loading (opsional)
+        submitBtn.textContent = "Mengarahkan ke WA...";
+        submitBtn.classList.add("loading");
+
+        // Redirect ke WhatsApp
+        setTimeout(() => {
+          window.open(waUrl, "_blank");
+          // Reset tombol setelah 1 detik
+          setTimeout(() => {
+            submitBtn.textContent = "Kirim Permintaan";
+            submitBtn.classList.remove("loading");
+            // Reset form jika diinginkan (opsional, bisa dihapus jika tidak mau)
+            // form.reset();
+          }, 1000);
+        }, 300);
+      });
+    </script>
+  </body>
+</html>

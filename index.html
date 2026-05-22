@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elastik Shop - Gantungan Kunci Custom</title>
+    <title>Elastik Shop - Aksesoris Custom Premium</title>
 
     <style>
       * {
@@ -42,7 +42,6 @@
         object-fit: contain;
       }
 
-      /* ===== NAVBAR ASLI (Desktop) TIDAK BERUBAH ===== */
       nav {
         display: flex;
         gap: 20px;
@@ -59,7 +58,6 @@
         color: #facc15;
       }
 
-      /* ===== HAMBURGER BUTTON (hanya muncul di mobile) ===== */
       .hamburger {
         display: none;
         background: none;
@@ -70,13 +68,10 @@
         z-index: 1001;
       }
 
-      /* ===== RESPONSIVE MOBILE (Navbar berubah jadi hamburger) ===== */
       @media (max-width: 768px) {
         .hamburger {
           display: block;
         }
-
-        /* Sembunyikan nav biasa, ganti dengan versi slide */
         nav {
           position: fixed;
           top: 0;
@@ -93,17 +88,13 @@
           z-index: 1000;
           box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
         }
-
         nav a {
           margin-left: 0;
           font-size: 20px;
         }
-
         nav.show {
           right: 0;
         }
-
-        /* Overlay gelap (opsional, tutup saat klik di luar) */
         .overlay {
           display: none;
           position: fixed;
@@ -114,26 +105,20 @@
           background: rgba(0, 0, 0, 0.5);
           z-index: 999;
         }
-
         .overlay.show {
           display: block;
         }
-
-        /* Penyesuaian hero dll (tidak mengubah navbar) */
         .hero {
           text-align: center;
         }
-
         .hero-text h1 {
           font-size: 40px;
         }
-
         .hero-image {
           margin-top: 40px;
         }
       }
 
-      /* ===== SISA STYLE ASLI ANDA (TIDAK DIUBAH) ===== */
       .hero {
         min-height: 90vh;
         display: flex;
@@ -153,7 +138,7 @@
       .hero-text h1 {
         font-size: 55px;
         margin-bottom: 20px;
-        line-height: 1.1;
+        line-height: 1.2;
       }
 
       .hero-text span {
@@ -182,16 +167,79 @@
         background: white;
       }
 
+      /* ===== SLIDER ===== */
       .hero-image {
         flex: 1;
-        text-align: center;
         min-width: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      .hero-image img {
-        width: 80%;
-        max-width: 400px;
-        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
+      .slider-container {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(4px);
+        padding: 15px;
+        box-shadow: 0 25px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 380px;
+        overflow: hidden;
+        border-radius: 24px;
+        background: #0f172a;
+      }
+
+      .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        left: 0;
+        top: 0;
+        background: #1e293b;
+        padding: 20px;
+      }
+
+      .slide.active {
+        opacity: 1;
+        z-index: 1;
+      }
+
+      .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .dot.active {
+        background-color: #facc15;
+        transform: scale(1.2);
+        box-shadow: 0 0 8px #facc15;
+      }
+
+      @media (max-width: 768px) {
+        .slider {
+          height: 280px;
+        }
       }
 
       section {
@@ -282,47 +330,72 @@
         padding: 25px;
         margin-top: 50px;
       }
+
+      .product-detail-section {
+        background: white;
+      }
+
+      .product-detail-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .product-detail-image img {
+        width: 100%;
+        max-width: 1200px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
     </style>
   </head>
   <body>
-    <!-- HEADER (Navbar asli tidak berubah, hanya ditambahkan tombol hamburger) -->
     <header>
       <div class="logo">
         <img src="logo-elastik.png" alt="Logo Elastik Shop" />
-        <span>Elastik Shop</span>
+        <span>ElastikShop</span>
       </div>
-
-      <!-- Tombol Hamburger (hanya tampil di mobile) -->
       <button class="hamburger" id="hamburgerBtn">☰</button>
-
-      <!-- Navigasi asli, strukturnya tetap sama -->
       <nav id="navMenu">
-        <a href="#">Home</a>
-        <a href="#">Produk</a>
-        <a href="#">Custom</a>
-        <a href="#">Kontak</a>
+        <a href="index.html">Home</a>
+        <a href="produk.html">Produk</a>
+        <a href="custom.html">Custom</a>
+        <a href="contact.html">Kontak</a>
       </nav>
-
       <div id="overlay" class="overlay"></div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
       <div class="hero-text">
-        <h1>Jasa Pembuatan <span>Gantungan Kunci Karet</span> Custom</h1>
+        <!-- Teks heading diubah menjadi lebih premium & mencakup aksesoris -->
+        <h1>
+          Jasa Pembuatan
+          <span>Aksesoris Custom Premium</span><br />
+          Gantungan Kunci, Figura Foto & Lainnya
+        </h1>
         <p>
-          Elastik Shop menyediakan jasa pembuatan gantungan kunci karet custom
-          dengan desain bebas sesuai logo, komunitas, brand, sekolah,
-          perusahaan, hingga merchandise event.
+          Elastik Shop menyediakan jasa pembuatan berbagai aksesoris custom
+          berkualitas tinggi mulai dari gantungan kunci karet, figura foto
+          akrilik, pin, magnet, hingga merchandise eksklusif untuk brand,
+          komunitas, sekolah, dan acara spesial Anda.
         </p>
-        <a href="#" class="btn">Pesan Sekarang</a>
+        <a href="custom.html" class="btn">Pesan Sekarang</a>
       </div>
+
+      <!-- SLIDER OTOMATIS -->
       <div class="hero-image">
-        <img src="mockup.png" alt="gantungan kunci" />
+        <div class="slider-container">
+          <div class="slider" id="slider">
+            <img src="mockup.png" class="slide active" alt="Produk 1" />
+            <img src="detail.png" class="slide" alt="Detail Produk" />
+            <img src="mouckup01.png" class="slide" alt="Produk 2" />
+            <img src="detail01.png" class="slide" alt="Detail Lain" />
+          </div>
+          <div class="slider-dots" id="sliderDots"></div>
+        </div>
       </div>
     </section>
 
-    <!-- LAYANAN -->
     <section>
       <div class="title">
         <h2>Layanan Kami</h2>
@@ -332,62 +405,69 @@
         <div class="card">
           <h3>Custom Design</h3>
           <p>
-            Bisa custom desain sesuai logo, gambar, komunitas, sekolah,
-            perusahaan, ataupun desain pribadi.
+            Bebas desain sesuai logo, gambar, tema komunitas, sekolah,
+            perusahaan, maupun ide pribadi Anda.
           </p>
         </div>
         <div class="card">
-          <h3>Bahan Berkualitas</h3>
+          <h3>Bahan Premium</h3>
           <p>
-            Menggunakan bahan karet PVC premium yang awet, lentur, dan memiliki
-            warna tajam.
+            Tersedia banyak pilihan: karet PVC, akrilik, kayu, logam, resin,
+            dengan hasil cetak tajam dan tahan lama.
           </p>
         </div>
         <div class="card">
           <h3>Harga Terjangkau</h3>
           <p>
-            Cocok untuk souvenir, merchandise event, komunitas motor, football
-            fans, dan kebutuhan promosi.
+            Cocok untuk souvenir, merchandise event, hadiah ulang tahun, promosi
+            bisnis, hingga kebutuhan koleksi pribadi.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- GALLERY -->
     <section>
       <div class="title">
         <h2>Produk Kami</h2>
-        <p>Contoh hasil gantungan kunci custom Elastik Shop.</p>
+        <p>Contoh hasil karya custom dari Elastik Shop.</p>
       </div>
       <div class="gallery">
-        <img src="persib.png" />
-        <img src="mouckup01.png" />
-        <img src="persib2.png" />
-        <img src="mockup.png" />
+        <img src="persib.png" alt="Produk Persib" />
+        <img src="mouckup01.png" alt="Mockup 1" />
+        <img src="persib2.png" alt="Produk Persib 2" />
+        <img src="mockup.png" alt="Mockup utama" />
       </div>
     </section>
 
-    <!-- CUSTOM -->
+    <section class="product-detail-section">
+      <div class="title">
+        <h2>Detail Produk</h2>
+        <p>Spesifikasi lengkap aksesoris custom Elastik Shop.</p>
+      </div>
+      <div class="product-detail-image">
+        <img src="detail.png" alt="Detail Produk Elastik Shop" />
+      </div>
+    </section>
+
     <section>
       <div class="custom">
         <h2>Bisa Custom Sesuai Keinginan</h2>
         <p>
-          Kirim desain logo atau konsep Anda, dan kami akan membantu membuat
-          gantungan kunci karet custom dengan hasil premium dan detail terbaik.
-          Cocok untuk kebutuhan komunitas, merchandise, promosi bisnis, sekolah,
-          hingga event besar.
+          Kirimkan desain logo, foto, atau konsep Anda. Tim kami akan membantu
+          mewujudkan aksesoris custom impian dengan hasil premium dan detail
+          terbaik. Cocok untuk gantungan kunci, figura foto, pin, magnet,
+          keychain akrilik, dan banyak lagi.
         </p>
-        <a href="#" class="btn">Hubungi Kami</a>
+        <a href="custom.html" class="btn">Hubungi Kami</a>
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-      <p>© 2026 Elastik Shop - Jasa Pembuatan Gantungan Kunci Karet Custom</p>
+      <p>© 2026 Elastik Shop - Jasa Pembuatan Aksesoris Custom Premium</p>
     </footer>
 
     <script>
-      // Hamburger menu toggle (tanpa mengubah struktur navbar asli)
+      // Hamburger menu
       const hamburger = document.getElementById("hamburgerBtn");
       const navMenu = document.getElementById("navMenu");
       const overlay = document.getElementById("overlay");
@@ -395,21 +475,18 @@
       function toggleMenu() {
         navMenu.classList.toggle("show");
         overlay.classList.toggle("show");
-        // Ubah ikon ☰ menjadi ✕ saat menu terbuka
         hamburger.innerHTML = navMenu.classList.contains("show") ? "✕" : "☰";
       }
 
       hamburger.addEventListener("click", toggleMenu);
       overlay.addEventListener("click", toggleMenu);
 
-      // Tutup menu saat link di klik
       document.querySelectorAll("#navMenu a").forEach((link) => {
         link.addEventListener("click", () => {
           if (navMenu.classList.contains("show")) toggleMenu();
         });
       });
 
-      // Jika layar di-resize melebihi 768px, pastikan menu kembali ke mode desktop
       window.addEventListener("resize", function () {
         if (window.innerWidth > 768) {
           if (navMenu.classList.contains("show")) {
@@ -419,6 +496,41 @@
           }
         }
       });
+
+      // Slider otomatis
+      const slides = document.querySelectorAll(".slide");
+      const dotsContainer = document.getElementById("sliderDots");
+      let currentIndex = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === index);
+        });
+        document.querySelectorAll(".dot").forEach((dot, i) => {
+          dot.classList.toggle("active", i === index);
+        });
+        currentIndex = index;
+      }
+
+      function createDots() {
+        dotsContainer.innerHTML = "";
+        slides.forEach((_, i) => {
+          const dot = document.createElement("div");
+          dot.classList.add("dot");
+          if (i === currentIndex) dot.classList.add("active");
+          dot.addEventListener("click", () => showSlide(i));
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function nextSlide() {
+        let nextIndex = (currentIndex + 1) % slides.length;
+        showSlide(nextIndex);
+      }
+
+      createDots();
+      showSlide(0);
+      setInterval(nextSlide, 3000);
     </script>
   </body>
 </html>
