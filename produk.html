@@ -2,24 +2,16 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elastik Shop - Aksesoris Custom Premium</title>
     <meta
-      name="description"
-      content="Elastik Shop melayani pembuatan gantungan kunci karet custom PVC berkualitas untuk komunitas, perusahaan, sekolah, dan merchandise event." />
-    <meta
-      name="keywords"
-      content="gantungan kunci custom, gantungan kunci karet, keychain PVC, souvenir custom, merchandise custom" />
-    <meta name="author" content="Elastik Shop" />
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/png" href="logo-elastik.png" />
-
-    <!-- Font Awesome -->
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Elastik Shop - Semua Produk</title>
+    <link rel="icon" type="image/png" href="assets/images/logo-elastik.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-      /* ===== SALIN SEMUA STYLE DARI index.html ===== */
+      /* ===== STYLE SAMA DENGAN INDEX.HTML (disalin agar konsisten) ===== */
       * {
         margin: 0;
         padding: 0;
@@ -152,6 +144,11 @@
         border-radius: 15px;
         object-fit: cover;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .gallery img:hover {
+        transform: scale(1.02);
       }
       footer {
         background: #0f172a;
@@ -170,18 +167,174 @@
         color: #facc15;
         text-decoration: none;
       }
-      .footer-credit a:hover {
-        text-decoration: underline;
+      .service-text {
+        background: #eef2ff;
+        padding: 25px;
+        border-radius: 20px;
+        margin-top: 40px;
+        text-align: center;
+      }
+      /* Lightbox (salin dari index) */
+      .lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+      }
+      .lightbox.active {
+        display: flex;
+      }
+      .lightbox-img {
+        max-width: 90%;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .lightbox-detail {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 15px 25px;
+        border-radius: 40px;
+        text-align: center;
+        color: white;
+        backdrop-filter: blur(8px);
+        max-width: 90%;
+      }
+      .lightbox-detail .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #facc15;
+      }
+      .shopee-link {
+        display: inline-block;
+        background: #ee4d2d;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+        z-index: 10000;
+      }
+      .lightbox-prev,
+      .lightbox-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 50px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        user-select: none;
+        z-index: 10000;
+      }
+      .lightbox-prev {
+        left: 20px;
+      }
+      .lightbox-next {
+        right: 20px;
+      }
+      @media (max-width: 768px) {
+        .lightbox-prev,
+        .lightbox-next {
+          font-size: 30px;
+          padding: 5px 10px;
+        }
+        .lightbox-detail .price {
+          font-size: 20px;
+        }
+      }
+
+      /* ===== EFEK GERAK SCROLL KHUSUS MOBILE (tanpa mengubah desain asli) ===== */
+      @media (max-width: 768px) {
+        /* Atur elemen agar tersembunyi dengan efek halus */
+        .gallery img {
+          opacity: 0;
+          transform: translateY(35px);
+          transition:
+            opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1),
+            transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+          will-change: transform, opacity;
+        }
+        /* Saat terlihat, tampil dengan gerakan naik */
+        .gallery img.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        /* Hover scaling hanya ketika sudah muncul (tidak merusak efek dasar) */
+        .gallery img.revealed:hover {
+          transform: scale(1.02);
+        }
+        /* Nonaktifkan hover scale default pada mobile agar tidak bentrok efek translate */
+        .gallery img:hover {
+          transform: none;
+        }
+
+        /* Efek untuk box layanan */
+        .service-text {
+          opacity: 0;
+          transform: translateY(25px);
+          transition:
+            opacity 0.6s ease,
+            transform 0.6s ease;
+        }
+        .service-text.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Efek untuk judul section (berguna memberi kesan dinamis) */
+        .title {
+          opacity: 0;
+          transform: translateY(15px);
+          transition:
+            opacity 0.5s ease 0.1s,
+            transform 0.5s ease 0.1s;
+        }
+        .title.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Tombol aksi juga sedikit animasi */
+        .btn {
+          opacity: 0;
+          transform: scale(0.96);
+          transition:
+            opacity 0.5s ease 0.15s,
+            transform 0.4s ease;
+        }
+        .btn.revealed {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
     </style>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
   <body>
     <header>
       <div class="logo">
-        <img src="logo-elastik.png" alt="Logo" /><span>Elastik Shop</span>
+        <img src="assets/images/logo-elastik.png" alt="Logo" /><span
+          >Elastik Shop</span
+        >
       </div>
       <button class="hamburger" id="hamburgerBtn">☰</button>
       <nav id="navMenu">
@@ -189,45 +342,138 @@
         <a href="produk.html">Produk</a>
         <a href="custom.html">Custom</a>
         <a href="contact.html">Kontak</a>
-        <!-- MENU FIGURA LIGHTING PAINTING (BARU) -->
-        <a href="#figura">Figura Lighting</a>
       </nav>
       <div id="overlay" class="overlay"></div>
     </header>
 
-    <!-- Section produk utama (gantungan kunci) -->
-    <section>
+    <!-- 1. FIGURA (DIPERKUAT, DITAMPILKAN PERTAMA) -->
+    <section id="figura">
       <div class="title">
-        <h2>Semua Koleksi Produk</h2>
-        <p>Berbagai model gantungan kunci custom dari bahan karet premium</p>
+        <h2>🖼️ Figura Lighting Painting</h2>
+        <p>Koleksi figura eksklusif dengan efek cahaya artistik</p>
       </div>
-      <div class="gallery">
-        <img src="persib.png" alt="Produk 1" />
-        <img src="mouckup01.png" alt="Produk 2" />
-        <img src="persib2.png" alt="Produk 3" />
-        <img src="mockup.png" alt="Produk 4" />
-        <img src="persib.png" alt="Produk 5" />
-        <img src="mouckup01.png" alt="Produk 6" />
+      <div class="gallery" id="figuraGallery">
+        <!-- Gambar figura dengan data-name dan data-price -->
+        <img
+          src="assets/images/figura/f1.jpeg"
+          alt="Figura Lighting 1"
+          data-name="Figura "
+          data-price="Rp 125.000" />
+        <img
+          src="assets/images/figura/f2.jpeg"
+          alt="Figura Lighting 2"
+          data-name="Figura "
+          data-price="Rp 135.000" />
+        <img
+          src="assets/images/figura/f3.jpeg"
+          alt="Figura Lighting 3"
+          data-name="Figura "
+          data-price="Rp 115.000" />
+        <img
+          src="assets/images/figura/f4.jpeg"
+          alt="Figura Lighting 4"
+          data-name="Figura"
+          data-price="Rp 150.000" />
+        <img
+          src="assets/images/figura/f5.jpeg"
+          alt="Figura "
+          data-name="Figura Modern Geometris"
+          data-price="Rp 140.000" />
+        <img
+          src="assets/images/figura/f6.jpeg"
+          alt="Figura Lighting 6"
+          data-name="Figura "
+          data-price="Rp 128.000" />
+        <img
+          src="assets/images/figura/f7.jpeg"
+          alt="Figura Lighting 7"
+          data-name="Figura"
+          data-price="Rp 145.000" />
+        <img
+          src="assets/images/figura/f8.jpeg"
+          alt="Figura Lighting 8"
+          data-name="Figura "
+          data-price="Rp 160.000" />
+        <img
+          src="assets/images/figura/f9.jpeg"
+          alt="Figura Lighting 9"
+          data-name="Figura"
+          data-price="Rp 110.000" />
+        <img
+          src="assets/images/figura/f10.jpeg"
+          alt="Figura Lighting 10"
+          data-name="Figura "
+          data-price="Rp 155.000" />
+        <img
+          src="assets/images/figura/f11.jpeg"
+          alt="Figura Lighting 11"
+          data-name="Figura "
+          data-price="Rp 120.000" />
       </div>
-      <div style="text-align: center; margin-top: 40px">
-        <a href="custom.html" class="btn">Pesan Custom Sekarang</a>
+      <div style="text-align: center; margin-top: 30px">
+        <a
+          href="https://id.shp.ee/Apftx7iZ?share_channel_code=1"
+          target="_blank"
+          class="btn"
+          style="background: #ee4d2d; color: white"
+          ><i class="fab fa-shopee"></i> Belanja Figura di Shopee</a
+        >
       </div>
     </section>
 
-    <!-- SECTION BARU: FIGURA LIGHTING PAINTING (hanya judul + gambar, tanpa tombol) -->
-    <section id="figura">
+    <!-- 2. GANTUNGAN KUNCI (setelah figura) -->
+    <section>
       <div class="title">
-        <h2>Figura Lighting Painting</h2>
-        <p>Koleksi figura dengan efek cahaya artistik</p>
+        <h2>🔑 Gantungan Kunci Custom</h2>
+        <p>Berbagai model gantungan kunci dari bahan karet premium</p>
       </div>
-      <div class="gallery">
-        <!-- Ganti src dengan gambar figura lighting painting milik Anda -->
-        <img src="figura1.jpeg" alt="Figura Lighting 1" />
-        <img src="figura2.png" alt="Figura Lighting 2" />
-        <img src="figura3.png" alt="Figura Lighting 3" />
-        <img src="figura4.png" alt="Figura Lighting 4" />
-        <img src="figura5.png" alt="Figura Lighting 5" />
-        <img src="figura6.png" alt="Figura Lighting 6" />
+      <div class="gallery" id="keychainGallery">
+        <img
+          src="assets/images/gantungan/persib.png"
+          alt="Gantungan Persib"
+          data-name="Keychain Persib"
+          data-price="Rp 9.000" />
+        <img
+          src="assets/images/gantungan/mouckup01.png"
+          alt="Mockup 1"
+          data-name="Keychain Karet Custom 01"
+          data-price="Rp 8.500" />
+        <img
+          src="assets/images/gantungan/persib2.png"
+          alt="Persib 2"
+          data-name="Keychain Persib 2"
+          data-price="Rp 9.500" />
+        <img
+          src="assets/images/gantungan/mockup.png"
+          alt="Mockup utama"
+          data-name="Keychain Premium Custom"
+          data-price="Rp 10.000" />
+        <img
+          src="assets/images/gantungan/persib.png"
+          alt="Gantungan Persib"
+          data-name="Keychain Persib (duplikat)"
+          data-price="Rp 9.000" />
+        <img
+          src="assets/images/gantungan/mouckup01.png"
+          alt="Mockup 1"
+          data-name="Keychain Karet Custom 02"
+          data-price="Rp 8.500" />
+      </div>
+      <!-- Teks layanan jasa tambahan -->
+      <div class="service-text">
+        <h3>
+          ✨ Kami juga menerima jasa pembuatan gantungan kunci & figura ✨
+        </h3>
+        <p>
+          <strong>Detail Produk :</strong> Bahan karet PVC / silikon / akrilik •
+          Ukuran 3-6 cm • Cetak 2 sisi • Free desain • MOQ 50 pcs • Pengerjaan
+          7-14 hari • Harga mulai Rp 5.000/pcs (tergantung jumlah). Untuk
+          figura: berbagai ukuran (A4, A3, besar) dengan lampu LED, harga mulai
+          Rp 110.000.
+        </p>
+      </div>
+      <div style="text-align: center; margin-top: 30px">
+        <a href="custom.html" class="btn">Pesan Custom Sekarang</a>
       </div>
     </section>
 
@@ -236,16 +482,32 @@
       <div class="footer-credit">
         <i class="fas fa-crown"></i>
         Expertly crafted by
-        <a
-          href="https://jannahdigitalteknologi.site"
-          target="_blank"
-          rel="noopener noreferrer"
+        <a href="https://jannahdigitalteknologi.site" target="_blank"
           >Jannah Digital Technology</a
         >
       </div>
     </footer>
 
+    <!-- LIGHTBOX (SAMA SEPERTI DI INDEX) -->
+    <div id="lightbox" class="lightbox">
+      <span class="lightbox-close">&times;</span>
+      <span class="lightbox-prev">&#10094;</span>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <div class="lightbox-detail">
+        <p><strong id="productName"></strong></p>
+        <p class="price" id="productPrice"></p>
+        <a
+          href="https://id.shp.ee/Apftx7iZ?share_channel_code=1"
+          target="_blank"
+          class="shopee-link"
+          ><i class="fab fa-shopee"></i> Lihat di Shopee</a
+        >
+      </div>
+      <span class="lightbox-next">&#10095;</span>
+    </div>
+
     <script>
+      // HAMBURGER MENU (tidak diubah)
       const hamburger = document.getElementById("hamburgerBtn");
       const navMenu = document.getElementById("navMenu");
       const overlay = document.getElementById("overlay");
@@ -268,6 +530,223 @@
           hamburger.innerHTML = "☰";
         }
       });
+
+      // LIGHTBOX DENGAN HARGA & SHOPEE (tidak diubah)
+      const galleryImages = document.querySelectorAll(".gallery img");
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const productNameSpan = document.getElementById("productName");
+      const productPriceSpan = document.getElementById("productPrice");
+      const closeBtn = document.querySelector(".lightbox-close");
+      const prevBtn = document.querySelector(".lightbox-prev");
+      const nextBtn = document.querySelector(".lightbox-next");
+
+      let imageList = [];
+      let currentIdx = 0;
+
+      function buildImageList() {
+        imageList = [];
+        galleryImages.forEach((img) => {
+          imageList.push({
+            src: img.src,
+            name: img.getAttribute("data-name") || img.alt || "Produk Elastik",
+            price: img.getAttribute("data-price") || "Hubungi CS",
+          });
+        });
+      }
+
+      function showLightbox(index) {
+        if (!imageList.length) buildImageList();
+        if (index < 0) index = 0;
+        if (index >= imageList.length) index = imageList.length - 1;
+        currentIdx = index;
+        const item = imageList[currentIdx];
+        lightboxImg.src = item.src;
+        productNameSpan.innerText = item.name;
+        productPriceSpan.innerText =
+          item.price !== "Hubungi CS"
+            ? `💰 ${item.price}`
+            : "💬 Harga hubungi CS";
+        lightbox.classList.add("active");
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove("active");
+      }
+
+      function prevImage() {
+        let newIdx = currentIdx - 1;
+        if (newIdx < 0) newIdx = imageList.length - 1;
+        showLightbox(newIdx);
+      }
+
+      function nextImage() {
+        let newIdx = currentIdx + 1;
+        if (newIdx >= imageList.length) newIdx = 0;
+        showLightbox(newIdx);
+      }
+
+      galleryImages.forEach((img, idx) => {
+        img.addEventListener("click", (e) => {
+          e.stopPropagation();
+          buildImageList();
+          const found = imageList.findIndex((item) => item.src === img.src);
+          showLightbox(found !== -1 ? found : idx);
+        });
+      });
+
+      closeBtn.addEventListener("click", closeLightbox);
+      prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        prevImage();
+      });
+      nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        nextImage();
+      });
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("active")) return;
+        if (e.key === "Escape") closeLightbox();
+        else if (e.key === "ArrowLeft") prevImage();
+        else if (e.key === "ArrowRight") nextImage();
+      });
+
+      // ========== TAMBAHAN EFEK GERAK SCROLL UNTUK MOBILE ==========
+      // Fungsi ini hanya aktif pada layar <= 768px (mobile)
+      // Tidak mengubah desain desktop, hanya memberi efek fade+slide saat scroll
+      function initMobileScrollReveal() {
+        // Hapus observer sebelumnya jika ada (mencegah duplikasi saat resize)
+        if (window.scrollRevealObserver) {
+          window.scrollRevealObserver.disconnect();
+        }
+
+        // Jika bukan mode mobile, tidak perlu menambahkan efek gerak (hanya desktop)
+        if (window.innerWidth > 768) {
+          // Pastikan tidak ada kelas 'revealed' tersisa dari mode mobile sebelumnya (opsional)
+          // Tapi tidak mengganggu tampilan desktop karena CSS media query tidak aktif
+          return;
+        }
+
+        // Elemen - elemen yang akan mendapatkan efek muncul saat di-scroll
+        const imagesToReveal = document.querySelectorAll(".gallery img");
+        const serviceBoxes = document.querySelectorAll(".service-text");
+        const titleSections = document.querySelectorAll(".title");
+        const actionButtons = document.querySelectorAll(".btn");
+
+        // Kumpulkan semua elemen yang akan diamati
+        const elementsToObserve = [
+          ...imagesToReveal,
+          ...serviceBoxes,
+          ...titleSections,
+          ...actionButtons,
+        ];
+
+        // Intersection Observer dengan threshold ringan agar efek muncul lebih awal
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                // Setelah muncul, tidak perlu diamati lagi (hemat performa)
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.2, // 20% elemen terlihat baru memicu efek
+            rootMargin: "0px 0px -10px 0px", // sedikit margin agar tidak terlalu cepat
+          },
+        );
+
+        // Mulai amati setiap elemen
+        elementsToObserve.forEach((el) => {
+          if (el && !el.classList.contains("revealed")) {
+            observer.observe(el);
+          }
+        });
+
+        // Simpan observer untuk dibersihkan jika resize terjadi
+        window.scrollRevealObserver = observer;
+
+        // Sedikit tambahan: jika ada elemen yang sudah terlihat sebelum observer jalan (seperti judul pertama)
+        // Panggil manual untuk trigger cepat pada elemen yang sudah terlihat di viewport
+        setTimeout(() => {
+          elementsToObserve.forEach((el) => {
+            if (el && !el.classList.contains("revealed")) {
+              const rect = el.getBoundingClientRect();
+              const windowHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+              if (rect.top < windowHeight - 100) {
+                el.classList.add("revealed");
+                if (observer && observer.unobserve) observer.unobserve(el);
+              }
+            }
+          });
+        }, 100);
+      }
+
+      // Jalankan saat halaman dimuat
+      window.addEventListener("DOMContentLoaded", initMobileScrollReveal);
+      // Saat resize, re-inisialisasi (jika ukuran berubah antara mobile/desktop)
+      let resizeTimer;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          // Jika ukuran layar berubah, reset ulang efek gerak
+          // Pada desktop, hapus kelas 'revealed' agar tidak tertinggal? Tidak wajib karena CSS media tidak aktif.
+          // Tapi untuk mobile, kita reinit supaya elemen yang baru muncul tetap dapat animasi.
+          if (window.innerWidth <= 768) {
+            // Hapus kelas 'revealed' dari semua elemen sementara agar animasi bisa dipicu ulang saat scroll?
+            // Agar tidak langsung muncul semua, kita akan reset class untuk elemen yang belum pernah terlihat?
+            // Lebih baik tidak menghapus class yg sudah muncul, agar tidak mengagetkan.
+            // Namun jika terjadi perubahan orientasi, biarkan saja tetap mulus.
+            // Kita tetap inisialisasi ulang observer untuk elemen yang belum muncul.
+            if (window.scrollRevealObserver) {
+              window.scrollRevealObserver.disconnect();
+            }
+            // Re-observe hanya elemen yang belum memiliki kelas 'revealed'
+            const allTargets = [
+              ...document.querySelectorAll(".gallery img"),
+              ...document.querySelectorAll(".service-text"),
+              ...document.querySelectorAll(".title"),
+              ...document.querySelectorAll(".btn"),
+            ];
+            const newObserver = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("revealed");
+                    newObserver.unobserve(entry.target);
+                  }
+                });
+              },
+              { threshold: 0.2, rootMargin: "0px 0px -10px 0px" },
+            );
+            allTargets.forEach((el) => {
+              if (!el.classList.contains("revealed")) {
+                newObserver.observe(el);
+              }
+            });
+            window.scrollRevealObserver = newObserver;
+          } else {
+            // Jika dalam mode desktop, tidak perlu efek gerak, tapi tidak merusak apapun.
+            if (window.scrollRevealObserver) {
+              window.scrollRevealObserver.disconnect();
+              window.scrollRevealObserver = null;
+            }
+          }
+        }, 200);
+      });
+
+      // Pastikan juga saat konten dimuat ulang (misal gambar lambat) tambahan safety
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initMobileScrollReveal);
+      } else {
+        initMobileScrollReveal();
+      }
     </script>
   </body>
 </html>

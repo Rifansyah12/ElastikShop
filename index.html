@@ -12,7 +12,7 @@
       content="gantungan kunci custom, gantungan kunci karet, keychain PVC, souvenir custom, merchandise custom" />
     <meta name="author" content="Elastik Shop" />
     <meta name="robots" content="index, follow" />
-    <link rel="icon" type="image/png" href="logo-elastik.png" />
+    <link rel="icon" type="image/png" href="assets/images/logo-elastik.png" />
 
     <!-- Font Awesome -->
     <link
@@ -20,6 +20,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
+      /* ===== SEMUA STYLE SAMA PERSIS DENGAN YANG ANDA PUNYA ===== */
       * {
         margin: 0;
         padding: 0;
@@ -403,14 +404,7 @@
         transform: translateY(0);
       }
 
-      .card.reveal {
-        transition-delay: 0.1s;
-      }
-      .gallery img.reveal {
-        transition-delay: 0.05s;
-      }
-
-      /* ===== LIGHTBOX STYLE ===== */
+      /* ===== LIGHTBOX YANG DIPERKUAT (menampilkan harga & link Shopee) ===== */
       .lightbox {
         display: none;
         position: fixed;
@@ -430,11 +424,45 @@
       }
       .lightbox-img {
         max-width: 90%;
-        max-height: 85%;
+        max-height: 70vh;
         object-fit: contain;
         border-radius: 8px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         cursor: default;
+        margin-bottom: 20px;
+      }
+      .lightbox-detail {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 15px 25px;
+        border-radius: 40px;
+        text-align: center;
+        color: white;
+        backdrop-filter: blur(8px);
+        max-width: 90%;
+      }
+      .lightbox-detail p {
+        margin: 8px 0;
+        font-size: 18px;
+      }
+      .lightbox-detail .price {
+        font-size: 24px;
+        font-weight: bold;
+        color: #facc15;
+      }
+      .shopee-link {
+        display: inline-block;
+        background: #ee4d2d;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: 0.2s;
+      }
+      .shopee-link:hover {
+        background: #d93a1a;
+        transform: scale(1.02);
       }
       .lightbox-close {
         position: absolute;
@@ -486,9 +514,15 @@
           top: 10px;
           right: 15px;
         }
+        .lightbox-detail p {
+          font-size: 14px;
+        }
+        .lightbox-detail .price {
+          font-size: 20px;
+        }
       }
 
-      /* ===== FLOATING WHATSAPP BUTTON dengan animasi Pulse ===== */
+      /* ===== FLOATING WHATSAPP BUTTON ===== */
       @keyframes pulse-wa {
         0% {
           transform: scale(1);
@@ -530,7 +564,6 @@
         transform: scale(1.1);
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
       }
-      /* Perbaikan untuk mobile */
       @media (max-width: 768px) {
         .wa-float {
           width: 56px;
@@ -547,7 +580,7 @@
   <body>
     <header>
       <div class="logo">
-        <img src="logo-elastik.png" alt="Logo Elastik Shop" />
+        <img src="assets/images/logo-elastik.png" alt="Logo Elastik Shop" />
         <span>ElastikShop</span>
       </div>
       <button class="hamburger" id="hamburgerBtn">☰</button>
@@ -562,9 +595,7 @@
 
     <section class="hero">
       <div class="hero-text reveal">
-        <h1>
-          <span>Aksesoris Custom Premium</span>
-        </h1>
+        <h1><span>Aksesoris Custom Premium</span></h1>
         <p>
           Elastik Shop menyediakan aksesoris custom berkualitas: gantungan
           kunci, figura foto, pin, magnet, dan merchandise eksklusif untuk
@@ -576,23 +607,47 @@
       <div class="hero-image reveal">
         <div class="slider-container">
           <div class="slider" id="slider">
-            <!-- Slide awal (produk asli) -->
-            <img src="mockup.png" class="slide active" alt="Produk 1" />
-            <img src="detail.png" class="slide" alt="Detail Produk" />
-            <img src="mouckup01.png" class="slide" alt="Produk 2" />
-            <img src="detail01.png" class="slide" alt="Detail Lain" />
+            <img
+              src="assets/images/gantungan/mockup.png"
+              class="slide active"
+              alt="Produk 1" />
 
-            <!-- 4 GAMBAR FIGURA LIGHTING PAINTING (BARU) -->
-            <img src="figura1.jpeg" class="slide" alt="Figura Lighting 1" />
-            <img src="figura2.png" class="slide" alt="Figura Lighting 2" />
-            <img src="figura3.png" class="slide" alt="Figura Lighting 3" />
-            <img src="figura4.png" class="slide" alt="Figura Lighting 4" />
+            <img
+              src="assets/images/figura/f1.jpeg"
+              class="slide"
+              alt="Figura Lighting 1" />
+            <img
+              src="assets/images/gantungan/mouckup01.png"
+              class="slide"
+              alt="Produk 2" />
+            <img
+              src="assets/images/figura/f3.png"
+              class="slide"
+              alt="Figura Lighting 3" />
+            <!-- GAMBAR FIGURA (DOMINAN) -->
+            <img
+              src="assets/images/detail.png"
+              class="slide"
+              alt="Detail Produk" />
+            <img
+              src="assets/images/figura/f2.png"
+              class="slide"
+              alt="Figura Lighting 2" />
+            <img
+              src="assets/images/detail01.png"
+              class="slide"
+              alt="Detail Lain" />
+            <img
+              src="assets/images/figura/f4.png"
+              class="slide"
+              alt="Figura Lighting 4" />
           </div>
           <div class="slider-dots" id="sliderDots"></div>
         </div>
       </div>
     </section>
 
+    <!-- Layanan Kami -->
     <section>
       <div class="title reveal">
         <h2>Layanan Kami</h2>
@@ -623,16 +678,105 @@
       </div>
     </section>
 
+    <!-- GALERI GANTUNGAN KUNCI (KUNCI) -->
     <section>
       <div class="title reveal">
-        <h2>Produk Kami</h2>
+        <h2>Produk Gantungan Kunci</h2>
         <p>Contoh hasil karya custom dari Elastik Shop.</p>
       </div>
-      <div class="gallery">
-        <img src="persib.png" alt="Produk Persib" class="reveal" />
-        <img src="mouckup01.png" alt="Mockup 1" class="reveal" />
-        <img src="persib2.png" alt="Produk Persib 2" class="reveal" />
-        <img src="mockup.png" alt="Mockup utama" class="reveal" />
+      <div class="gallery" id="galleryKeychain">
+        <img
+          src="assets/images/gantungan/persib.png"
+          alt="Gantungan Persib"
+          data-name="Gantungan Kunci Persib"
+          data-price="Rp 9.000"
+          class="reveal" />
+        <img
+          src="assets/images/gantungan/mouckup01.png"
+          alt="Mockup 1"
+          data-name="Gantungan Karet Custom Mockup 1"
+          data-price="Rp 8.500"
+          class="reveal" />
+        <img
+          src="assets/images/gantungan/persib2.png"
+          alt="Produk Persib 2"
+          data-name="Gantungan Kunci Persib 2"
+          data-price="Rp 9.500"
+          class="reveal" />
+        <img
+          src="assets/images/gantungan/mockup.png"
+          alt="Mockup utama"
+          data-name="Gantungan Custom Premium"
+          data-price="Rp 10.000"
+          class="reveal" />
+      </div>
+      <!-- Teks layanan jasa tambahan -->
+      <div
+        style="
+          background: #eef2ff;
+          padding: 25px;
+          border-radius: 20px;
+          margin-top: 40px;
+          text-align: center;
+        "
+        class="reveal">
+        <h3 style="color: #111827; margin-bottom: 12px">
+          ✨ Kami juga menerima jasa pembuatan aksesoris custom ✨
+        </h3>
+        <p style="max-width: 800px; margin: 0 auto; line-height: 1.7">
+          <strong>Detail Produk Gantungan Kunci & Figura :</strong> Bahan karet
+          PVC / silikon elastik / akrilik premium • Proses cepat 7–14 hari •
+          Minimal order 50 pcs • Free desain untuk pemesanan di atas 200 pcs •
+          Tersedia berbagai aksesoris tambahan (rantai, ring, resin) • Garansi
+          kualitas cetak. Konsultasi gratis via WhatsApp.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION FIGURA YANG DOMINAN (BARU) -->
+    <section style="background: #fef9e6; border-radius: 40px; margin: 20px 8%">
+      <div class="title reveal">
+        <h2 style="color: #b45309">🖼️ Figura Lighting Painting</h2>
+        <p>
+          Koleksi figura eksklusif dengan efek cahaya artistik – cocok untuk
+          dekorasi rumah, kantor, atau hadiah spesial
+        </p>
+      </div>
+      <div class="gallery" id="galleryFigura">
+        <img
+          src="assets/images/figura/f1.jpeg"
+          alt="Figura 1"
+          data-name="Figura Lighting"
+          data-price="Rp 125.000"
+          class="reveal" />
+        <img
+          src="assets/images/figura/f2.jpeg"
+          alt="Figura 2"
+          data-name="Figura Lighting"
+          data-price="Rp 135.000"
+          class="reveal" />
+        <img
+          src="assets/images/figura/f3.jpeg"
+          alt="Figura 3"
+          data-name="Figura Lighting"
+          data-price="Rp 115.000"
+          class="reveal" />
+        <img
+          src="assets/images/figura/f4.jpeg"
+          alt="Figura 4"
+          data-name="Figura Lighting"
+          data-price="Rp 150.000"
+          class="reveal" />
+        <!-- Tambahkan gambar figura lainnya jika ada -->
+      </div>
+      <div style="text-align: center; margin-top: 30px">
+        <a
+          href="https://id.shp.ee/Apftx7iZ?share_channel_code=1"
+          target="_blank"
+          class="btn"
+          style="background: #ee4d2d; color: white"
+          ><i class="fab fa-shopee"></i> Belanja di Shopee Official</a
+        >
       </div>
     </section>
 
@@ -642,7 +786,11 @@
         <p>Spesifikasi lengkap aksesoris custom Elastik Shop.</p>
       </div>
       <div class="product-detail-image reveal">
-        <img src="detail.png" alt="Detail Produk Elastik Shop" />
+        <img
+          src="assets/images/detail.png"
+          alt="Detail Produk Elastik Shop"
+          data-name="Poster Detail Produk"
+          data-price="(Referensi)" />
       </div>
     </section>
 
@@ -673,15 +821,25 @@
       </div>
     </footer>
 
-    <!-- Lightbox HTML -->
+    <!-- LIGHTBOX (DENGAN DETAIL HARGA & SHOPEE) -->
     <div id="lightbox" class="lightbox">
       <span class="lightbox-close">&times;</span>
       <span class="lightbox-prev">&#10094;</span>
       <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <div class="lightbox-detail" id="lightboxDetail">
+        <p><strong id="productName"></strong></p>
+        <p class="price" id="productPrice"></p>
+        <a
+          href="https://id.shp.ee/Apftx7iZ?share_channel_code=1"
+          target="_blank"
+          class="shopee-link"
+          ><i class="fab fa-shopee"></i> Lihat di Shopee</a
+        >
+      </div>
       <span class="lightbox-next">&#10095;</span>
     </div>
 
-    <!-- Floating WhatsApp Button dengan animasi -->
+    <!-- Floating WhatsApp -->
     <a
       href="https://wa.me/628972089767?text=Halo%20Elastik%20Shop%2C%20saya%20tertarik%20dengan%20produk%20custom%20Anda"
       class="wa-float"
@@ -692,7 +850,7 @@
     </a>
 
     <script>
-      // Hamburger menu
+      // ========== HAMBURGER MENU ==========
       const hamburger = document.getElementById("hamburgerBtn");
       const navMenu = document.getElementById("navMenu");
       const overlay = document.getElementById("overlay");
@@ -702,27 +860,22 @@
         overlay.classList.toggle("show");
         hamburger.innerHTML = navMenu.classList.contains("show") ? "✕" : "☰";
       }
-
       hamburger.addEventListener("click", toggleMenu);
       overlay.addEventListener("click", toggleMenu);
-
       document.querySelectorAll("#navMenu a").forEach((link) => {
         link.addEventListener("click", () => {
           if (navMenu.classList.contains("show")) toggleMenu();
         });
       });
-
       window.addEventListener("resize", function () {
-        if (window.innerWidth > 768) {
-          if (navMenu.classList.contains("show")) {
-            navMenu.classList.remove("show");
-            overlay.classList.remove("show");
-            hamburger.innerHTML = "☰";
-          }
+        if (window.innerWidth > 768 && navMenu.classList.contains("show")) {
+          navMenu.classList.remove("show");
+          overlay.classList.remove("show");
+          hamburger.innerHTML = "☰";
         }
       });
 
-      // Slider otomatis
+      // ========== SLIDER OTOMATIS ==========
       const slides = document.querySelectorAll(".slide");
       const dotsContainer = document.getElementById("sliderDots");
       let currentIndex = 0;
@@ -747,80 +900,71 @@
           dotsContainer.appendChild(dot);
         });
       }
-
-      function nextSlide() {
-        let nextIndex = (currentIndex + 1) % slides.length;
-        showSlide(nextIndex);
-      }
-
       createDots();
       showSlide(0);
-      setInterval(nextSlide, 3000);
+      setInterval(() => {
+        let next = (currentIndex + 1) % slides.length;
+        showSlide(next);
+      }, 3000);
 
-      // ===== SCROLL REVEAL ANIMATION =====
+      // ========== SCROLL REVEAL ==========
       const revealElements = document.querySelectorAll(".reveal");
-
       function checkReveal() {
         const windowHeight = window.innerHeight;
-        const revealThreshold = 100;
-
         revealElements.forEach((el) => {
           const rect = el.getBoundingClientRect();
-          const isVisible = rect.top < windowHeight - revealThreshold;
-          if (isVisible) {
-            el.classList.add("visible");
-          }
+          if (rect.top < windowHeight - 100) el.classList.add("visible");
         });
       }
-
       window.addEventListener("load", checkReveal);
       window.addEventListener("scroll", checkReveal);
       window.addEventListener("resize", checkReveal);
 
-      // ===== LIGHTBOX =====
-      const galleryImages = document.querySelectorAll(
-        ".gallery img, .product-detail-image img",
+      // ========== LIGHTBOX DENGAN HARGA & SHOPEE ==========
+      // Kumpulkan semua gambar yang bisa diklik (galeri + detail product)
+      const allClickableImages = document.querySelectorAll(
+        ".gallery img, .product-detail-image img, .hero-image .slide",
       );
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightboxImg");
+      const productNameSpan = document.getElementById("productName");
+      const productPriceSpan = document.getElementById("productPrice");
       const closeBtn = document.querySelector(".lightbox-close");
       const prevBtn = document.querySelector(".lightbox-prev");
       const nextBtn = document.querySelector(".lightbox-next");
 
+      let currentImageList = [];
       let currentImageIndex = 0;
-      let imageList = [];
 
       function updateImageList() {
-        imageList = [];
-        galleryImages.forEach((img) => {
-          imageList.push({
+        currentImageList = [];
+        allClickableImages.forEach((img) => {
+          // Ambil data dari atribut atau dari alt
+          let name =
+            img.getAttribute("data-name") || img.alt || "Produk Elastik";
+          let price = img.getAttribute("data-price") || "Hubungi CS";
+          currentImageList.push({
             src: img.src,
-            alt: img.alt || "Product Image",
+            name: name,
+            price: price,
           });
         });
       }
 
       function showLightbox(index) {
+        if (!currentImageList.length) updateImageList();
         if (index < 0) index = 0;
-        if (index >= imageList.length) index = imageList.length - 1;
+        if (index >= currentImageList.length)
+          index = currentImageList.length - 1;
         currentImageIndex = index;
-        const imgData = imageList[currentImageIndex];
-        lightboxImg.src = imgData.src;
-        lightboxImg.alt = imgData.alt;
+        const item = currentImageList[currentImageIndex];
+        lightboxImg.src = item.src;
+        productNameSpan.innerText = item.name;
+        productPriceSpan.innerText =
+          item.price !== "Hubungi CS"
+            ? `💰 ${item.price}`
+            : "💬 Harga hubungi CS";
         lightbox.classList.add("active");
-      }
-
-      function bindClickEvents() {
-        galleryImages.forEach((img, idx) => {
-          img.addEventListener("click", (e) => {
-            e.stopPropagation();
-            updateImageList();
-            const newIndex = imageList.findIndex(
-              (item) => item.src === img.src,
-            );
-            showLightbox(newIndex >= 0 ? newIndex : idx);
-          });
-        });
       }
 
       function closeLightbox() {
@@ -828,18 +972,28 @@
       }
 
       function prevImage() {
-        if (imageList.length === 0) return;
         let newIndex = currentImageIndex - 1;
-        if (newIndex < 0) newIndex = imageList.length - 1;
+        if (newIndex < 0) newIndex = currentImageList.length - 1;
         showLightbox(newIndex);
       }
 
       function nextImage() {
-        if (imageList.length === 0) return;
         let newIndex = currentImageIndex + 1;
-        if (newIndex >= imageList.length) newIndex = 0;
+        if (newIndex >= currentImageList.length) newIndex = 0;
         showLightbox(newIndex);
       }
+
+      // Pasang event click pada semua gambar
+      allClickableImages.forEach((img, idx) => {
+        img.addEventListener("click", (e) => {
+          e.stopPropagation();
+          updateImageList();
+          const foundIndex = currentImageList.findIndex(
+            (item) => item.src === img.src,
+          );
+          showLightbox(foundIndex !== -1 ? foundIndex : idx);
+        });
+      });
 
       closeBtn.addEventListener("click", closeLightbox);
       prevBtn.addEventListener("click", (e) => {
@@ -850,25 +1004,15 @@
         e.stopPropagation();
         nextImage();
       });
-
       lightbox.addEventListener("click", (e) => {
-        if (e.target === lightbox) {
-          closeLightbox();
-        }
+        if (e.target === lightbox) closeLightbox();
       });
-
       document.addEventListener("keydown", (e) => {
         if (!lightbox.classList.contains("active")) return;
-        if (e.key === "Escape") {
-          closeLightbox();
-        } else if (e.key === "ArrowLeft") {
-          prevImage();
-        } else if (e.key === "ArrowRight") {
-          nextImage();
-        }
+        if (e.key === "Escape") closeLightbox();
+        else if (e.key === "ArrowLeft") prevImage();
+        else if (e.key === "ArrowRight") nextImage();
       });
-
-      bindClickEvents();
     </script>
   </body>
 </html>
